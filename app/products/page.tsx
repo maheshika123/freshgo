@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const categories = ['All', 'Bread', 'Pastries', 'Cakes', 'Cookies', 'Breakfast'];
@@ -133,7 +134,8 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-amber-100 to-amber-50">
+    <Suspense fallback={null}>
+      <div className="min-h-screen bg-gradient-to-b from-amber-50 via-amber-100 to-amber-50">
       {/* Simple top bar aligned with home style */}
       <header className="sticky top-0 z-40 bg-amber-50/90 backdrop-blur border-b border-amber-100">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-3">
@@ -286,7 +288,8 @@ export default function ProductsPage() {
           </Link>
         </section>
       </main>
-    </div>
+      </div>
+    </Suspense>
   );
 }
 
