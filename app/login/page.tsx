@@ -1,21 +1,24 @@
 'use client';
 
-import { useState, FormEvent, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, FormEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (searchParams.get('registered') === 'true') {
-      setSuccessMessage('Registration successful! Please sign in with your credentials.');
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('registered') === 'true') {
+      setSuccessMessage(
+        'Registration successful! Please sign in with your credentials.'
+      );
     }
-  }, [searchParams]);
+  }, []);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -60,8 +63,7 @@ export default function LoginPage() {
   };
 
   return (
-    <Suspense fallback={null}>
-      <div className="min-h-screen bg-gray-50 relative">
+    <div className="min-h-screen bg-gray-50 relative">
       {/* Header */}
       <header className="bg-gray-900 text-white px-6 py-4 relative z-30">
         <h1 className="text-xl font-semibold">Login</h1>
@@ -210,7 +212,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-    </Suspense>
   );
 }
 
