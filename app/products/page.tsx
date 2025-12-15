@@ -91,7 +91,7 @@ const saveCartItems = (items: CartItem[]) => {
   window.localStorage.setItem(CART_KEY, JSON.stringify(items));
 };
 
-export default function ProductsPage() {
+function ProductsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeCategoryParam = searchParams.get('category');
@@ -134,8 +134,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <Suspense fallback={null}>
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 via-amber-100 to-amber-50">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-amber-100 to-amber-50">
       {/* Simple top bar aligned with home style */}
       <header className="sticky top-0 z-40 bg-amber-50/90 backdrop-blur border-b border-amber-100">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-3">
@@ -288,9 +287,16 @@ export default function ProductsPage() {
           </Link>
         </section>
       </main>
-      </div>
-    </Suspense>
+    </div>
   );
 }
 
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ProductsContent />
+    </Suspense>
+  );
+}
 
